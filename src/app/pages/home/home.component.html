@@ -1,0 +1,32 @@
+<section class="hero glass-panel">
+  <div class="hero-content">
+    <h1 class="gradient-text">Arthos Braga</h1>
+    <h2>{{ profileTitle() }}</h2>
+    <p class="description">{{ profileDescription() }}</p>
+    
+    <div class="actions">
+      <a href="https://linkedin.com/in/" target="_blank" class="btn-primary">LinkedIn</a>
+      <a href="https://github.com/arthosbraga" target="_blank" class="btn-secondary">GitHub</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="avatar-placeholder gradient-bg"></div>
+  </div>
+</section>
+
+<section class="recent-articles">
+  <h3 class="section-title">Recent Articles</h3>
+  
+  <div class="articles-grid">
+    @for (article of mockArticles(); track article.title) {
+      <article class="glass-panel article-card">
+        <div class="article-meta">
+          <span class="date">{{ article.date }}</span>
+          <span class="read-time">{{ article.readTime }} read</span>
+        </div>
+        <h4>{{ article.title }}</h4>
+        <button class="read-more">Read Article &rarr;</button>
+      </article>
+    }
+  </div>
+</section>

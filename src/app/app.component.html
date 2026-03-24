@@ -1,0 +1,22 @@
+<header class="glass-panel">
+  <div class="logo">
+    <span class="gradient-text">Arthos Braga</span>
+  </div>
+  <nav>
+    <a href="/">Portfolio</a>
+    <a href="/articles">Articles</a>
+  </nav>
+</header>
+
+<main>
+  <!-- Background ambient effects -->
+  <div class="ambient-glow"></div>
+  
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; {{ currentYear() }} Arthos Braga. All rights reserved.</p>
+</footer>
