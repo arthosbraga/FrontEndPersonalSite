@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog",
+    "newsletter": "Newsletter"
+  },
+  "home": {
+    "title": "Arthos Braga",
+    "subtitle": "Senior Software Engineer",
+    "description": "Building high-performance APIs in Rust, scaling databases in Cassandra, and crafting beautiful interfaces with Angular.",
+    "cta_projects": "View Projects",
+    "cta_blog": "Read Blog"
+  },
+  "newsletter": {
+    "title": "Subscribe to my Newsletter",
+    "email_placeholder": "Enter your email",
+    "button": "Subscribe",
+    "success": "Successfully subscribed!"
+  }
+}

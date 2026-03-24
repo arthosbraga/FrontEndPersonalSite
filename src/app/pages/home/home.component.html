@@ -1,32 +1,57 @@
-<section class="hero glass-panel">
-  <div class="hero-content">
-    <h1 class="gradient-text">Arthos Braga</h1>
-    <h2>{{ profileTitle() }}</h2>
-    <p class="description">{{ profileDescription() }}</p>
+<div class="home-container" *transloco="let t">
+  <section class="hero">
+    <h1>{{ t('home.title') }}</h1>
+    <h2>{{ t('home.subtitle') }}</h2>
+    <p>{{ t('home.description') }}</p>
     
     <div class="actions">
-      <a href="https://linkedin.com/in/" target="_blank" class="btn-primary">LinkedIn</a>
-      <a href="https://github.com/arthosbraga" target="_blank" class="btn-secondary">GitHub</a>
+      <button class="btn primary">{{ t('home.cta_projects') }}</button>
+      <button class="btn secondary">{{ t('home.cta_blog') }}</button>
     </div>
-  </div>
-  <div class="hero-image">
-    <div class="avatar-placeholder gradient-bg"></div>
-  </div>
-</section>
+  </section>
 
-<section class="recent-articles">
-  <h3 class="section-title">Recent Articles</h3>
-  
-  <div class="articles-grid">
-    @for (article of mockArticles(); track article.title) {
-      <article class="glass-panel article-card">
-        <div class="article-meta">
-          <span class="date">{{ article.date }}</span>
-          <span class="read-time">{{ article.readTime }} read</span>
+  @if (portfolio()) {
+    <section class="skills">
+      <h3>Skills</h3>
+      <div class="skill-tags">
+        @for (skill of portfolio()?.skills; track skill) {
+          <span class="skill-tag">{{ skill }}</span>
+        }
+      </div>
+    </section>
+
+    <section class="experience">
+      <h3>Experience</h3>
+      @for (exp of portfolio()?.experiences; track exp.id) {
+        <div class="experience-card">
+          <h4>{{ exp.title }} at {{ exp.company }}</h4>
+          <p>{{ exp.description }}</p>
+          <span class="date">{{ exp.date_started | date }}</span>
         </div>
-        <h4>{{ article.title }}</h4>
-        <button class="read-more">Read Article &rarr;</button>
-      </article>
-    }
+      }
+    </section>
+
+    <section class="projects">
+      <h3>Latest Projects</h3>
+      <div class="project-grid">
+        @for (project of portfolio()?.projects; track project.id) {
+          <div class="project-card">
+            <h4>{{ project.title }}</h4>
+            <p>{{ project.description }}</p>
+            @if (project.url) {
+              <a [href]="project.url" target="_blank">Source Code</a>
+            }
+          </div>
+        }
+      </div>
+    </section>
+  }
+</div>
+
+<footer class="newsletter-footer" *transloco="let t">
+  <h3>{{ t('newsletter.title') }}</h3>
+  <div class="form-group">
+    <input type="email" [placeholder]="t('newsletter.email_placeholder')" #emailInput>
+    <button (click)="emailInput.value = ''">{{ t('newsletter.button') }}</button>
   </div>
-</section>
+</footer>
