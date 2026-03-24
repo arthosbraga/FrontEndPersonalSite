@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection, isDevMode, inject } from '@angular/core';
+import { ApplicationConfig, isDevMode, inject, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
@@ -19,7 +19,7 @@ export const i18nInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([i18nInterceptor])),
     provideTransloco({

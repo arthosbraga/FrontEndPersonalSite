@@ -1,18 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { TranslocoService, TranslocoPipe } from '@jsverse/transloco';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, TranslocoModule, CommonModule],
+  imports: [RouterOutlet, RouterLink, TranslocoPipe, CommonModule],
   template: `
-    <nav class="navbar">
+    <nav class="navbar glass-panel">
       <div class="nav-links">
-        <a routerLink="/" *transloco="let t">{{ t('nav.home') }}</a>
-        <a routerLink="/projects" *transloco="let t">{{ t('nav.projects') }}</a>
-        <a routerLink="/blog" *transloco="let t">{{ t('nav.blog') }}</a>
+        <a routerLink="/">{{ 'nav.home' | transloco }}</a>
+        <a routerLink="/projects">{{ 'nav.projects' | transloco }}</a>
+        <a routerLink="/blog">{{ 'nav.blog' | transloco }}</a>
       </div>
       <div class="lang-selector">
         <select (change)="changeLang($event)">
@@ -30,22 +30,35 @@ import { CommonModule } from '@angular/common';
     .navbar {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 1rem 2rem;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 1rem;
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
     }
     .nav-links a {
       margin-right: 1.5rem;
       text-decoration: none;
-      color: inherit;
+      color: var(--text-primary);
       font-weight: 500;
+      font-family: var(--font-heading);
+      
+      &:hover {
+        color: var(--accent-primary);
+      }
     }
     .lang-selector select {
-      background: transparent;
-      border: 1px solid #ccc;
-      padding: 0.2rem;
-      border-radius: 4px;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+      padding: 0.4rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      outline: none;
+    }
+    main {
+      padding: 2rem;
     }
   `]
 })

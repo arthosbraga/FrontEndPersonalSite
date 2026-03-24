@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, inject, signal, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { TranslocoService, TranslocoPipe } from '@jsverse/transloco';
 import { PortfolioService } from '../../services/portfolio.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
@@ -8,7 +8,7 @@ import { switchMap } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, TranslocoModule],
+  imports: [CommonModule, TranslocoPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
