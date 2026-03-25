@@ -46,8 +46,12 @@ jobs:
           chmod 600 ~/.kube/config
           
           # Sobrescreve a URL do server no kubeconfig para acessar via VPN (porta nativa K8s: 6443)
-          CLUSTER_NAME=$(kubectl config view -o jsonpath='{.clusters[0].name}')
-          kubectl config set-cluster $CLUSTER_NAME --server=https://vpn.arthos.dev.br:6443 --insecure-skip-tls-verify=true
+          CLUSTER_NAME=$(kubectl config view --minify -o jsonpath='{.clusters[0].name}')
+          if [ -z "$CLUSTER_NAME" ]; then
+            echo "Erro: O nome do cluster não foi encontrado. O secret KUBECONFIG está vazio neste repositório?"
+            exit 1
+          fi
+          kubectl config set-cluster "$CLUSTER_NAME" --server=https://vpn.arthos.dev.br:6443 --insecure-skip-tls-verify=true
           
           # Força o restart do deployment para baixar a nova imagem ghcr.io/arthosbraga/personalsite-front:latest
           # Nota: ajuste 'personalsite-front' e 'personal-infra' se os nomes diferirem no seu cluster
