@@ -31,3 +31,24 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/arthosbraga/personalsite-front:latest
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Trigger Kubernetes deployment update
+        env:
+          KUBECONFIG_DATA: ${{ secrets.KUBECONFIG }}
+        run: |
+          mkdir -p ~/.kube
+          echo "$KUBECONFIG_DATA" > ~/.kube/config
+          chmod 600 ~/.kube/config
+          
+          # Sobrescreve a URL do server no kubeconfig para acessar via VPN (porta nativa K8s: 6443)
+          CLUSTER_NAME=$(kubectl config view -o jsonpath='{.clusters[0].name}')
+          kubectl config set-cluster $CLUSTER_NAME --server=https://vpn.arthos.dev.br:6443 --insecure-skip-tls-verify=true
+          
+          # Força o restart do deployment para baixar a nova imagem ghcr.io/arthosbraga/personalsite-front:latest
+          # Nota: ajuste 'personalsite-front' e 'personal-infra' se os nomes diferirem no seu cluster
+          kubectl rollout restart deployment personalsite-front -n personal-infra
